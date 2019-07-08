@@ -13,6 +13,7 @@ using AutoMapper;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic;
+using BusinessLogic.Managers;
 
 namespace StoreApp
 {
@@ -40,6 +41,7 @@ namespace StoreApp
             services.AddDbContext<StoreApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<BasketManager, BasketManager>();
+            services.AddScoped<ProductManager, ProductManager>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

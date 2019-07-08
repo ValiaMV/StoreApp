@@ -1,20 +1,27 @@
 ﻿@model  IEnumerable<ProductViewModel>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Basket";
+    ViewData["IsBasket"] = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Basket</h1>
-
-<ul class="list-group">
-    @foreach (var product in Model)
-    {
-        <li class="list-group-item">
-            @product.Name
-            @product.CategoryName
-        </li>
-    }
-</ul>
-
+<table class="table-hover">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Price</td>
+            <td>Category</td>
+            <td>Option</td>
+        </tr>
+    </thead>
+    <tbody>
+        <partial name="ProductListPartial" view-data="ViewData"/>
+    </tbody>
+</table>
+<a asp-controller="Basket"
+   asp-action="ClearAll"
+   class="button">
+    Clear
+</a>
 
 

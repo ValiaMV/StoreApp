@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BusinessLogic
+namespace BusinessLogic.Managers
 {
     public class BasketManager
     {
@@ -34,6 +34,14 @@ namespace BusinessLogic
             }
 
             return products;
+        }
+        public void Clear(string userId)
+        {
+            var basket = _context.Baskets.Include(b => b.BasketProducts).Where(b => b.UserId == userId).FirstOrDefault();
+
+            _context.BasketProducts.RemoveRange(_context.BasketProducts.Where(bp => basket.BasketProducts.Select(bprod => bprod.Product).Contains(bp.Product)));
+
+            _context.SaveChanges();
         }
     }
 }
