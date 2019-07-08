@@ -39,7 +39,7 @@ namespace StoreApp
 
             services.AddDbContext<StoreApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<Manager, Manager>();
+            services.AddScoped<BasketManager, BasketManager>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

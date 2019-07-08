@@ -9,19 +9,19 @@ using System.Linq;
 
 namespace BusinessLogic
 {
-    public class Manager
+    public class BasketManager
     {
         private StoreApplicationContext _context;
 
         private IMapper _mapper;
 
-        public Manager(StoreApplicationContext context, IMapper mapper)
+        public BasketManager(StoreApplicationContext context, IMapper mapper)
         {
             _context = context ?? throw new ArgumentNullException(nameof(StoreApplicationContext));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(IMapper));
         }
 
-        public IEnumerable<ProductModel> GetProductFromBasket(string userId)
+        public IEnumerable<ProductModel> GetProductsFromBasket(string userId)
         {
             var basket = _context.Baskets.Include(b => b.BasketProducts).ThenInclude(bp => bp.Product).ThenInclude(p => p.Category).Where(b => b.UserId == userId).FirstOrDefault() ?? new Basket();
 
