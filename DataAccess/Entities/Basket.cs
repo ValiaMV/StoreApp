@@ -13,5 +13,11 @@ namespace DataAccess.Entities
 
         public List<BasketProduct> BasketProducts { get; set; }
 
+
+
+        public Basket()
+        {
+            BasketProducts = new List<BasketProduct>();
+        }
     }
 }

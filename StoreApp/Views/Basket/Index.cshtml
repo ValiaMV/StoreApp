@@ -1,0 +1,20 @@
+﻿@model  IEnumerable<ProductViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Basket</h1>
+
+<ul class="list-group">
+    @foreach (var product in Model)
+    {
+        <li class="list-group-item">
+            @product.Name
+            @product.CategoryName
+        </li>
+    }
+</ul>
+
+
+

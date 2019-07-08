@@ -17,11 +17,14 @@ namespace DataAccess
         public StoreApplicationContext(DbContextOptions<StoreApplicationContext> options) 
             : base(options)
         {
-            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BasketProduct>()
+                .HasKey(bp => new { bp.BasketId, bp.ProductId });
+
+
             modelBuilder.Entity<BasketProduct>()
                 .HasOne(bp => bp.Product)
                 .WithMany(prod => prod.BasketProducts)
