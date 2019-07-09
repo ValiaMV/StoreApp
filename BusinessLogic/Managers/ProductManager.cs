@@ -36,5 +36,18 @@ namespace BusinessLogic.Managers
 
             return allProducts;
         }
+
+
+
+        public void AddProductToBasket(string userId, int productId)
+        {
+            var basket = _context.Baskets.Include(b => b.BasketProducts).ThenInclude(bp => bp.Product).Where(b => b.UserId == userId).FirstOrDefault();
+
+            if(basket != null)
+            {
+                _context.BasketProducts.Add(new BasketProduct { BasketId = basket.Id, ProductId = productId });
+                _context.SaveChanges();
+            }
+        }
     }
 }
