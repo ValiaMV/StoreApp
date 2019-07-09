@@ -14,6 +14,8 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic;
 using BusinessLogic.Managers;
+using StoreApp.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace StoreApp
 {
@@ -39,6 +41,12 @@ namespace StoreApp
             services.AddAutoMapper();
 
             services.AddDbContext<StoreApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<StoreIdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDefaultIdentity<StoreUser>()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<StoreIdentityContext>();
+
 
             services.AddScoped<BasketManager, BasketManager>();
             services.AddScoped<ProductManager, ProductManager>();
@@ -61,13 +69,23 @@ namespace StoreApp
             }
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetService<StoreApplicationContext>();
-                context.Database.Migrate();
+                using (var context = serviceScope.ServiceProvider.GetService<StoreApplicationContext>())
+                {
+                    context.Database.Migrate();
+                }
+
+                using (var context = serviceScope.ServiceProvider.GetService<StoreIdentityContext>())
+                {
+                    context.Database.Migrate();
+                }
             }
+
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
