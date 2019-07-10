@@ -48,6 +48,16 @@ namespace StoreApp
                 .AddEntityFrameworkStores<StoreIdentityContext>();
 
 
+            services.AddAuthentication()
+                .AddGoogle(options =>
+            {
+                IConfigurationSection googleAuthNSection =
+                    Configuration.GetSection("Authentication:Google");
+
+                options.ClientId = googleAuthNSection["ClientId"];
+                options.ClientSecret = googleAuthNSection["ClientSecret"];
+            });
+
             services.AddScoped<BasketManager, BasketManager>();
             services.AddScoped<ProductManager, ProductManager>();
 
