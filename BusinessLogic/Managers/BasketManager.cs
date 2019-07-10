@@ -49,5 +49,17 @@ namespace BusinessLogic.Managers
         }
 
 
+
+        public void Create(string userId)
+        {
+            if(userId != null)
+            {
+                _context.Baskets.Add(new Basket { Name = "Basket_" + userId, UserId = userId });
+                _context.SaveChanges();
+            }
+        }
+
+
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using BusinessLogic.Managers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -16,6 +17,7 @@ namespace StoreApp.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        private readonly BasketManager _basketManager;
         private readonly SignInManager<StoreUser> _signInManager;
         private readonly UserManager<StoreUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -25,12 +27,14 @@ namespace StoreApp.Areas.Identity.Pages.Account
             UserManager<StoreUser> userManager,
             SignInManager<StoreUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            BasketManager basketManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _basketManager = basketManager;
         }
 
         [BindProperty]
@@ -84,6 +88,8 @@ namespace StoreApp.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    _basketManager.Create(user.Id);
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
