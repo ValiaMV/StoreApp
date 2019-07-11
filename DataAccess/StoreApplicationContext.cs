@@ -25,6 +25,7 @@ namespace DataAccess
                 .HasKey(bp => new { bp.BasketId, bp.ProductId });
 
 
+
             modelBuilder.Entity<BasketProduct>()
                 .HasOne(bp => bp.Product)
                 .WithMany(prod => prod.BasketProducts)

@@ -23,7 +23,7 @@ namespace BusinessLogic.Managers
 
         public IEnumerable<ProductModel> GetProductsFromBasket(string userId)
         {
-            var basket = _context.Baskets.Include(b => b.BasketProducts).ThenInclude(bp => bp.Product).ThenInclude(p => p.Category).Where(b => b.UserId == userId).FirstOrDefault() ?? new Basket();
+            var basket = _context.Baskets.Include(b => b.BasketProducts).ThenInclude(bp => bp.Product).ThenInclude(p => p.Category).SingleOrDefault(b => b.UserId == userId) ?? new Basket();
 
             var products = new List<ProductModel>();
             if(basket.BasketProducts.Count != 0)
@@ -31,13 +31,15 @@ namespace BusinessLogic.Managers
                 var product = basket.BasketProducts.Where(b => b.BasketId == basket.Id).Select(bp => bp.Product).ToList();
 
                 products = _mapper.Map<List<Product>, List<ProductModel>>(product);
+
+                products.ForEach(p => p.Count = basket.BasketProducts.Single(pc => pc.ProductId == p.Id).Count);
             }
 
             return products;
         }
         public void Clear(string userId)
         {
-            var basket = _context.Baskets.Include(b => b.BasketProducts).Where(b => b.UserId == userId).FirstOrDefault();
+            var basket = _context.Baskets.Include(b => b.BasketProducts).SingleOrDefault(b => b.UserId == userId);
 
             if(basket != null && basket.BasketProducts.Count != 0)
             {
@@ -60,6 +62,28 @@ namespace BusinessLogic.Managers
         }
 
 
+        public void Delete(string userId, int productId)
+        {
+            if(userId != null && productId != 0)
+            {
+                var basket = _context.Baskets.SingleOrDefault(b => b.UserId == userId);
+                if(basket != null)
+                {
+                    var product = _context.BasketProducts.Where(bp => bp.BasketId == basket.Id).SingleOrDefault(bp => bp.ProductId == productId);
+                    _context.BasketProducts.Remove(product);
+                    _context.SaveChanges();
+                }
+            }
+        }
 
+        public void SetCount(string userId, int productId, int count)
+        {
+            if(userId != null && productId > 0 && count > 0)
+            {
+                var basket = _context.Baskets.SingleOrDefault(b => b.UserId == userId);
+                _context.BasketProducts.SingleOrDefault(bp => bp.ProductId == productId && bp.BasketId == basket.Id).Count = count;
+                _context.SaveChanges();
+            }
+        }
     }
 }

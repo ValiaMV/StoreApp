@@ -45,7 +45,15 @@ namespace BusinessLogic.Managers
 
             if(basket != null)
             {
-                _context.BasketProducts.Add(new BasketProduct { BasketId = basket.Id, ProductId = productId });
+                var existBasketProduct = _context.BasketProducts.Where(bp => bp.BasketId == basket.Id).Where(bp => bp.ProductId == productId).FirstOrDefault();
+                if(existBasketProduct == null)
+                {
+                    _context.BasketProducts.Add(new BasketProduct { BasketId = basket.Id, ProductId = productId, Count = 1 });
+                }
+                else
+                {
+                    existBasketProduct.Count++;
+                }
                 _context.SaveChanges();
             }
         }

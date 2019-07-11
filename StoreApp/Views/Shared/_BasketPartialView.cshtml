@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ProductViewModel>
+
+@{ 
+    ViewData["Count"] = 0;
+}
+@foreach (var product in Model)
+{
+    <tr>
+
+        <td>
+            @product.Name
+        </td>
+
+        <td>
+            @product.Price
+        </td>
+
+        <td>
+            @{ 
+                var inputId = product.Id + "_count";
+                ViewData["Count"] = @product.Count;
+            }
+
+            <form method="post"
+                  asp-controller="Basket"
+                  asp-action="SetProductCount" >
+
+                <input style="width:50px"
+                       type="number"
+                       name="@inputId"
+                       asp-for="@product.Count"
+                        />
+                <button class="btn" type="submit">
+                    <i style="font-size:24px" class="fa">&#xf021;</i>
+                </button>
+            </form>
+
+        </td>
+
+
+        <td> <a asp-controller="Basket" asp-action="Delete" asp-route-productId="@product.Id">Delete</a></td>
+
+
+    </tr>
+
+}

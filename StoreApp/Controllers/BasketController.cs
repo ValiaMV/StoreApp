@@ -21,11 +21,14 @@ namespace StoreApp.Controllers
         private UserManager<StoreUser> _userManager;
 
 
+        private string _userId;
+
         public BasketController(BasketManager manager, IMapper mapper, UserManager<StoreUser> userManager)
         {
             _manager = manager ?? throw new ArgumentNullException(nameof(BasketManager));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(IMapper));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(UserManager<StoreUser>));
+
         }
         public IActionResult Index()
         {
@@ -35,7 +38,31 @@ namespace StoreApp.Controllers
 
         public IActionResult ClearAll()
         {
-            _manager.Clear(_userManager.GetUserId(User));
+            var userId = _userManager.GetUserId(User);
+
+            _manager.Clear(userId);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int productId)
+        {
+            var userId = _userManager.GetUserId(User);
+            _manager.Delete(userId, productId);
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult SetProductCount(int productId)
+        {
+            if(productId > 0)
+            {
+                var userId = _userManager.GetUserId(User);
+                var count = Convert.ToInt32(Request.Form[productId + "_count"]);
+                if (count > 0)
+                {
+                    _manager.SetCount(userId, productId, count);
+                }
+            }
+
             return RedirectToAction("Index");
         }
     }

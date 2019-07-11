@@ -1,27 +1,31 @@
-﻿@model  IEnumerable<ProductViewModel>
+﻿@model IEnumerable<ProductViewModel>
 @{
     ViewData["Title"] = "Basket";
     ViewData["IsBasket"] = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table-hover">
+<table class="table">
     <thead>
         <tr>
             <td>Name</td>
             <td>Price</td>
-            <td>Category</td>
+            <td>Count</td>
             <td>Option</td>
         </tr>
     </thead>
     <tbody>
-        <partial name="ProductListPartial" view-data="ViewData"/>
+        <partial name="_BasketPartialView" />
     </tbody>
 </table>
-<a asp-controller="Basket"
-   asp-action="ClearAll"
-   class="button">
-    Clear
-</a>
+@if (Model.Count() != 0)
+{
+    <a asp-controller="Basket"
+       asp-action="ClearAll"
+       class="button">
+        Clear
+    </a>
+}
+
 
 
