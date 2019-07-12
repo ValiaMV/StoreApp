@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessLogic.Models
+namespace DataAccess.Entities
 {
     public class Delivery
     {
@@ -10,5 +10,6 @@ namespace BusinessLogic.Models
 
         public string Type { get; set; }
 
+        public List<Order> Orders { get; set; }
     }
 }

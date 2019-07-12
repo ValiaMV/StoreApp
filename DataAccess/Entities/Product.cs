@@ -14,5 +14,7 @@ namespace DataAccess.Entities
         public Category Category { get; set; }
 
         public List<BasketProduct> BasketProducts { get; set; }
+
+        public List<OrderProduct> OrderProducts { get; set; }
     }
 }

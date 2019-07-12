@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace BusinessLogic.Models
+namespace StoreApp.Models
 {
-    public class Order
+    public class OrderViewModel
     {
         public int Id { get; set; }
 
@@ -14,7 +15,6 @@ namespace BusinessLogic.Models
 
         public string Address { get; set; }
 
-        public Delivery Delivery { get; set; }
-
+        public int DeliveryId { get; set; }
     }
 }

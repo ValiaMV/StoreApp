@@ -14,6 +14,10 @@ namespace DataAccess
 
         public DbSet<BasketProduct> BasketProducts { get; set; }
 
+        public DbSet<Delivery> Deliveries { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
         public StoreApplicationContext(DbContextOptions<StoreApplicationContext> options) 
             : base(options)
         {

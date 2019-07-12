@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Managers;
 using BusinessLogic.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StoreApp.Data;
@@ -64,6 +65,14 @@ namespace StoreApp.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult MakeOrder()
+        {
+
         }
     }
 }
