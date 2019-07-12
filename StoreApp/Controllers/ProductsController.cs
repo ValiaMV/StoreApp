@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Managers;
 using BusinessLogic.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StoreApp.Data;
@@ -27,12 +28,23 @@ namespace StoreApp.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(IMapper));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(UserManager<StoreUser>));
         }
-        public IActionResult Index()
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Index(int id)
         {
-            var productsData = _mapper.Map<IEnumerable<ProductModel>, IEnumerable<ProductViewModel>>(_manager.GetAllProducts());
-            return View(productsData);
+
+            var productsData = id == 0 ? _manager.GetAllProducts() : _manager.GetProducts(id);
+            var products = _mapper.Map<IEnumerable<ProductModel>, IEnumerable<ProductViewModel>>(productsData);
+            return View(products);
         }
 
+
+
+
+        [HttpGet]
+        [Authorize]
         public IActionResult Add(int id)
         {
             if(id != 0)

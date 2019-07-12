@@ -1,0 +1,13 @@
+﻿@model IEnumerable<CategoryViewModel>
+
+<ul  class="nav justify-content-end">
+    @foreach (var category in Model)
+    {
+        <li class="nav-item">
+            <a class="nav-link" 
+               asp-controller="Category"
+               asp-action="GetProducts"
+               asp-route-categoryId="@category.Id">@category.Name</a>
+        </li>
+    }
+</ul>
