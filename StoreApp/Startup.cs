@@ -61,6 +61,7 @@ namespace StoreApp
             services.AddScoped<BasketManager, BasketManager>();
             services.AddScoped<ProductManager, ProductManager>();
             services.AddScoped<CategoryManager, CategoryManager>();
+            services.AddScoped<OrderManager, OrderManager>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

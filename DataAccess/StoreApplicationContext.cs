@@ -28,13 +28,10 @@ namespace DataAccess
             modelBuilder.Entity<BasketProduct>()
                 .HasKey(bp => new { bp.BasketId, bp.ProductId });
 
-
-
             modelBuilder.Entity<BasketProduct>()
                 .HasOne(bp => bp.Product)
                 .WithMany(prod => prod.BasketProducts)
                 .HasForeignKey(bp => bp.ProductId);
-
 
             modelBuilder.Entity<BasketProduct>()
                 .HasOne(bp => bp.Basket)
@@ -49,6 +46,19 @@ namespace DataAccess
                 .HasForeignKey(prod => prod.CategoryId);
 
 
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasKey(op => new { op.OrderId, op.ProductId });
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne(bp => bp.Product)
+                .WithMany(prod => prod.OrderProducts)
+                .HasForeignKey(bp => bp.ProductId);
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne(bp => bp.Order)
+                .WithMany(basket => basket.OrderProducts)
+                .HasForeignKey(bp => bp.OrderId);
 
 
             base.OnModelCreating(modelBuilder);

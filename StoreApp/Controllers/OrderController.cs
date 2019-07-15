@@ -38,15 +38,17 @@ namespace StoreApp.Controllers
             _userManager = userManager ?? throw new ArgumentNullException(nameof(UserManager<StoreUser>));
 
         }
+        [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
             var userId = _userManager.GetUserId(User);
-            var products = _mapper.Map<IEnumerable<ProductModel>, IEnumerable<ProductViewModel>>(_basketManager.GetProductsFromBasket(userId));
+            var products = GetProductsFromBasket();
             OrderViewModel orderModel = new OrderViewModel
             {
                 UserId = userId,
                 Products = products,
-                TotalPrice = products.Select( p => Convert.ToInt32(p.Price)).Sum()                
+                TotalPrice = _orderManager.GetTotalPrice(userId)                
             };
             return View(orderModel);
         }
@@ -54,9 +56,18 @@ namespace StoreApp.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult MakeOrder(OrderViewModel model)
+        public async Task<IActionResult> MakeOrder(OrderViewModel model)
         {
-            return View();
+            model.Products = GetProductsFromBasket(); 
+            model.UserId = _userManager.GetUserId(User);
+            await _orderManager.MakeOrder(_mapper.Map<OrderViewModel,OrderModel>(model));
+            return LocalRedirect("~/Home/Index/");
+        }
+
+        private IEnumerable<ProductViewModel> GetProductsFromBasket()
+        {
+            var userId = _userManager.GetUserId(User);
+            return _mapper.Map<IEnumerable<ProductModel>, IEnumerable<ProductViewModel>>(_basketManager.GetProductsFromBasket(userId));
         }
     }
 }
