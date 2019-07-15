@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BusinessLogic.Models
 {
-    public class Order
+    public class OrderModel
     {
         public int Id { get; set; }
 
@@ -14,7 +14,9 @@ namespace BusinessLogic.Models
 
         public string Address { get; set; }
 
-        public Delivery Delivery { get; set; }
+        public DeliveryModel Delivery { get; set; }
+
+        public IEnumerable<ProductModel> Products { get; set; }
 
     }
 }

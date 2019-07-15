@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BusinessLogic.Models
 {
-    public class Delivery
+    public class DeliveryModel
     {
         public int Id { get; set; }
 

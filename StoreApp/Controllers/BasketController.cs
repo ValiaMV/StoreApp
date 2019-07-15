@@ -68,11 +68,5 @@ namespace StoreApp.Controllers
         }
 
 
-        [HttpPost]
-        [Authorize]
-        public IActionResult MakeOrder()
-        {
-
-        }
     }
 }

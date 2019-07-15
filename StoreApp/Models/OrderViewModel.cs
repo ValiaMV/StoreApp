@@ -16,5 +16,7 @@ namespace StoreApp.Models
         public string Address { get; set; }
 
         public int DeliveryId { get; set; }
+
+        public IEnumerable<ProductViewModel> Products { get; set; }
     }
 }
