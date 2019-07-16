@@ -30,9 +30,13 @@ namespace BusinessLogic.Managers
         {
             if(model != null)
             {
-               await  _context.Orders.AddAsync(
-                    _mapper.Map<OrderModel, Order>(model)
-                    ); 
+                //var delivery = _context.Deliveries.SingleOrDefault(d => d.Id == model.DeliveryId);
+                var order = _mapper.Map<OrderModel, Order>(model);
+                //order.Delivery = delivery;
+                await _context.Orders.AddAsync(order);
+                var basket = _context.Baskets.Single(b => b.UserId == model.UserId);                
+                _context.BasketProducts.RemoveRange(_context.BasketProducts.Where(bp => bp.BasketId == basket.Id));
+                _context.SaveChanges();
             }
         }
 

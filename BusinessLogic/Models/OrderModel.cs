@@ -14,7 +14,7 @@ namespace BusinessLogic.Models
 
         public string Address { get; set; }
 
-        public DeliveryModel Delivery { get; set; }
+        public int DeliveryId { get; set; }
 
         public IEnumerable<ProductModel> Products { get; set; }
 

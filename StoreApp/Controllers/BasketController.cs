@@ -21,9 +21,6 @@ namespace StoreApp.Controllers
 
         private UserManager<StoreUser> _userManager;
 
-
-        private string _userId;
-
         public BasketController(BasketManager manager, IMapper mapper, UserManager<StoreUser> userManager)
         {
             _manager = manager ?? throw new ArgumentNullException(nameof(BasketManager));

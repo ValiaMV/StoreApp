@@ -23,7 +23,8 @@
 
             <form method="post"
                   asp-controller="Basket"
-                  asp-action="SetProductCount" >
+                  asp-action="SetProductCount"
+                  asp-route-productId="@product.Id">
 
                 <input style="width:50px"
                        type="number"

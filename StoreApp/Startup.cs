@@ -62,6 +62,7 @@ namespace StoreApp
             services.AddScoped<ProductManager, ProductManager>();
             services.AddScoped<CategoryManager, CategoryManager>();
             services.AddScoped<OrderManager, OrderManager>();
+            services.AddScoped<DeliveryManager, DeliveryManager>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -91,7 +92,6 @@ namespace StoreApp
                     context.Database.Migrate();
                 }
             }
-
 
 
             app.UseHttpsRedirection();

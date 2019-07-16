@@ -1,13 +1,13 @@
 ﻿@model OrderViewModel
-
+@inject DeliveryManager manager
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Order information</h1>
 
-<table>
+<table  class="table">
     <thead>
         <tr>
 
@@ -34,22 +34,56 @@
                 <td>
                     @product.Price
                 </td>
-
+                
+                <td>
+                    @product.Count
+                </td>
             </tr>
 
         }
     </tbody>
 </table>
-<form 
-      asp-controller="Order"
+
+
+<form asp-controller="Order"
       asp-action="MakeOrder"
       method="post">
-    <input asp-for="@Model.TotalPrice"/>
-    <input asp-for="@Model.Address"/>
-    <select asp-for="@Model.DeliveryId">
-        <option value="1"> 1 </option>
-        <option value="2"> 2 </option>
-    </select>
+
+    <div class="form-group">
+        <label asp-for="@Model.TotalPrice">Total price:</label>
+        <label>@Model.TotalPrice</label>
+        <input class="form-control"
+               asp-for="@Model.TotalPrice"  hidden/>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="@Model.Address">Delivery address:</label>
+        <input class="form-control"
+               asp-for="@Model.Address" />
+    </div>
+
+
+    <div class="form-group">
+
+        @{
+            var deliveries = manager.GetDeliveryTypes();
+        }
+        <select class="form-control"
+                asp-for="@Model.DeliveryId">
+
+            @foreach (var delivery in deliveries)
+            {
+                <option value="@delivery.Id"> @delivery.Type </option>
+            }
+
+        </select>
+
+    </div>
+
     <button class="btn"
-            type="submit">Order</button>
+            type="submit">
+        Order
+    </button>
+
 </form>

@@ -24,8 +24,6 @@ namespace StoreApp.Controllers
         private UserManager<StoreUser> _userManager;
 
 
-        private string _userId;
-
         public OrderController(
             BasketManager basketManager,
             OrderManager orderManager,
@@ -61,9 +59,15 @@ namespace StoreApp.Controllers
             model.Products = GetProductsFromBasket(); 
             model.UserId = _userManager.GetUserId(User);
             await _orderManager.MakeOrder(_mapper.Map<OrderViewModel,OrderModel>(model));
-            return LocalRedirect("~/Home/Index/");
+            return RedirectToAction("CompleteOrder");
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult CompleteOrder()
+        {
+            return View();
+        }
         private IEnumerable<ProductViewModel> GetProductsFromBasket()
         {
             var userId = _userManager.GetUserId(User);
