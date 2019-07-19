@@ -4,14 +4,16 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(StoreApplicationContext))]
-    partial class StoreApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20190717081435_orderDateAdd")]
+    partial class orderDateAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,23 +62,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Technology"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Home"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Garden"
-                        });
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Delivery", b =>
@@ -145,78 +130,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 2,
-                            Name = "Product 1",
-                            Price = "61"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 3,
-                            Name = "Product 2",
-                            Price = "41"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 1,
-                            Name = "Product 3",
-                            Price = "40"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 2,
-                            Name = "Product 4",
-                            Price = "49"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CategoryId = 3,
-                            Name = "Product 5",
-                            Price = "95"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CategoryId = 1,
-                            Name = "Product 6",
-                            Price = "37"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CategoryId = 2,
-                            Name = "Product 7",
-                            Price = "93"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoryId = 3,
-                            Name = "Product 8",
-                            Price = "32"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoryId = 1,
-                            Name = "Product 9",
-                            Price = "14"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CategoryId = 2,
-                            Name = "Product 10",
-                            Price = "74"
-                        });
                 });
 
             modelBuilder.Entity("DataAccess.Entities.BasketProduct", b =>

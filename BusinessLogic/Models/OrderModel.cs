@@ -16,6 +16,8 @@ namespace BusinessLogic.Models
 
         public int DeliveryId { get; set; }
 
+        public DateTime OpenDate { get; set; }
+
         public IEnumerable<ProductModel> Products { get; set; }
 
     }

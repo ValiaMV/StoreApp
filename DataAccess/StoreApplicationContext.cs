@@ -1,6 +1,8 @@
 ﻿using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess
 {
@@ -18,7 +20,7 @@ namespace DataAccess
 
         public DbSet<Order> Orders { get; set; }
 
-        public StoreApplicationContext(DbContextOptions<StoreApplicationContext> options) 
+        public StoreApplicationContext(DbContextOptions<StoreApplicationContext> options)
             : base(options)
         {
         }
@@ -61,7 +63,35 @@ namespace DataAccess
                 .HasForeignKey(bp => bp.OrderId);
 
 
+            SeedData(modelBuilder);
+
             base.OnModelCreating(modelBuilder);
         }
+
+        private void SeedData(ModelBuilder modelBuilder)
+        {
+            var category = new[]
+            {
+                new Category { Id = 1, Name = "Technology"},
+                new Category { Id = 2, Name = "Home"},
+                new Category { Id = 3, Name = "Garden"}
+            };
+
+            var random = new Random();
+
+            modelBuilder.Entity<Category>().HasData(category);
+
+            var products = Enumerable.Range(1, 10)
+                .Select(i => new Product
+                {
+                    Id = i,
+                    Name = "Product " + i,
+                    Price = Convert.ToInt32(random.NextDouble() * 100).ToString(),
+                    CategoryId = category[i % category.Length].Id
+                }).ToArray();
+
+            modelBuilder.Entity<Product>().HasData(products);
+        }
+
     }
 }

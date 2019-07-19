@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreApp.Data;
 
 namespace StoreApp.Migrations
 {
     [DbContext(typeof(StoreIdentityContext))]
-    partial class StoreIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20190719104054_SeedDataIdentityUpdate2")]
+    partial class SeedDataIdentityUpdate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,14 +48,14 @@ namespace StoreApp.Migrations
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "5900a2ef-5dba-4df6-a542-47029ae5c93a",
+                            ConcurrencyStamp = "6987786f-2890-416a-98d0-b91cabbf8c1b",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "a8a3b45b-8373-4dab-b902-6bf8d5c46e1b",
+                            ConcurrencyStamp = "07bcc844-ad6a-4042-8213-3a9191d4986e",
                             Name = "User",
                             NormalizedName = "User"
                         });
@@ -134,7 +136,7 @@ namespace StoreApp.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6b55403b-2719-4638-aa7e-3345b6af6eef",
+                            UserId = "admin_user",
                             RoleId = "admin"
                         });
                 });
@@ -209,19 +211,19 @@ namespace StoreApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6b55403b-2719-4638-aa7e-3345b6af6eef",
+                            Id = "admin_user",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "94ca6a93-5ab0-4921-b857-9832c4453f2c",
+                            ConcurrencyStamp = "fa7a2f71-0c78-4278-8964-8fbe8f6776a1",
                             Email = "admin@storeapp.valia",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "admin@storeapp.valia",
-                            NormalizedUserName = "admin@storeapp.valia",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDTuug9VccsK1XHCCku0MqxN3OjYX/VzW6y7HERh8xI9uf1aWmBowai991XaCs1KdQ==",
+                            NormalizedEmail = "ADMIN@STOREAPP.VALIA",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL82bpjGsvYkuwuEV3OzI4HxHU86uoQkgZmDgYvuXZER/FclCIkIv0rrCE5ncldXHQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e08295e9-51a9-4c6d-9454-c30ad99195bf",
+                            SecurityStamp = "27a57520-be6a-4ac7-9a1b-3d38b0b7f876",
                             TwoFactorEnabled = false,
-                            UserName = "admin@storeapp.valia"
+                            UserName = "Admin"
                         });
                 });
 

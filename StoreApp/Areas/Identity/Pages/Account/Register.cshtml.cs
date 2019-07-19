@@ -90,6 +90,9 @@ namespace StoreApp.Areas.Identity.Pages.Account
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     _basketManager.Create(user.Id);
+
+                    await _userManager.AddToRoleAsync(user, "User");
+
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)

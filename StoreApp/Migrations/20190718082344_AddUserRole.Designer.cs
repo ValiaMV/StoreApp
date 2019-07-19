@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreApp.Data;
 
 namespace StoreApp.Migrations
 {
     [DbContext(typeof(StoreIdentityContext))]
-    partial class StoreIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20190718082344_AddUserRole")]
+    partial class AddUserRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,17 +47,15 @@ namespace StoreApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "admin",
-                            ConcurrencyStamp = "5900a2ef-5dba-4df6-a542-47029ae5c93a",
-                            Name = "Admin",
-                            NormalizedName = "Admin"
+                            Id = "584a088d-7d5c-4c4c-80f9-edda714179ff",
+                            ConcurrencyStamp = "d55e591f-762c-4435-8905-e678e50c9e0b",
+                            Name = "Admin"
                         },
                         new
                         {
-                            Id = "user",
-                            ConcurrencyStamp = "a8a3b45b-8373-4dab-b902-6bf8d5c46e1b",
-                            Name = "User",
-                            NormalizedName = "User"
+                            Id = "2fc17d5e-d61a-453c-b98e-ae39b6acc965",
+                            ConcurrencyStamp = "f570c04d-15f0-4c97-bbbd-acbabc4b327d",
+                            Name = "User"
                         });
                 });
 
@@ -130,13 +130,6 @@ namespace StoreApp.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "6b55403b-2719-4638-aa7e-3345b6af6eef",
-                            RoleId = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -205,24 +198,6 @@ namespace StoreApp.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "6b55403b-2719-4638-aa7e-3345b6af6eef",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "94ca6a93-5ab0-4921-b857-9832c4453f2c",
-                            Email = "admin@storeapp.valia",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "admin@storeapp.valia",
-                            NormalizedUserName = "admin@storeapp.valia",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDTuug9VccsK1XHCCku0MqxN3OjYX/VzW6y7HERh8xI9uf1aWmBowai991XaCs1KdQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e08295e9-51a9-4c6d-9454-c30ad99195bf",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@storeapp.valia"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

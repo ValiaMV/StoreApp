@@ -1,0 +1,16 @@
+﻿@page
+@model StoreApp.Areas.Identity.Pages.Account.Manage.OrdersModel
+@{
+}
+@{
+    ViewData["Title"] = "Orders";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+<ul class="list-group">
+    @foreach (var order in @Model.Orders)
+    {
+        <li class="list-group-item">
+            @order.OpenDate @order.TotalPrice
+        </li>
+    }
+</ul>

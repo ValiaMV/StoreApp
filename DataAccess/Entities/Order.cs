@@ -18,6 +18,8 @@ namespace DataAccess.Entities
 
         public int DeliveryId { get; set; }
 
+        public DateTime OpenDate { get; set; }
+
         public List<OrderProduct> OrderProducts { get; set; }
 
     }

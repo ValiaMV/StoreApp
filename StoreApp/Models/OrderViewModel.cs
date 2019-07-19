@@ -17,6 +17,8 @@ namespace StoreApp.Models
 
         public int DeliveryId { get; set; }
 
+        public DateTime OpenDate { get; set; }
+
         public IEnumerable<ProductViewModel> Products { get; set; }
     }
 }

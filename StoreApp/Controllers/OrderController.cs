@@ -56,10 +56,17 @@ namespace StoreApp.Controllers
         [Authorize]
         public async Task<IActionResult> MakeOrder(OrderViewModel model)
         {
-            model.Products = GetProductsFromBasket(); 
-            model.UserId = _userManager.GetUserId(User);
-            await _orderManager.MakeOrder(_mapper.Map<OrderViewModel,OrderModel>(model));
-            return RedirectToAction("CompleteOrder");
+            if(ModelState.IsValid)
+            {
+                model.Products = GetProductsFromBasket();
+                model.UserId = _userManager.GetUserId(User);
+                model.OpenDate = DateTime.Now;
+
+                await _orderManager.MakeOrder(_mapper.Map<OrderViewModel, OrderModel>(model));
+
+                return RedirectToAction("CompleteOrder");
+            }
+            return View();
         }
 
         [HttpGet]

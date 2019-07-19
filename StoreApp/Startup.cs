@@ -44,6 +44,7 @@ namespace StoreApp
             services.AddDbContext<StoreIdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<StoreUser>()
+                .AddRoles<IdentityRole>()
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<StoreIdentityContext>();
 
